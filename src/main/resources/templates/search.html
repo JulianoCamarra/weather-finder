@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Weather Finder</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous" />
+
+<link href='https://fonts.googleapis.com/css?family=Oswald'
+	rel='stylesheet' />
+
+<!--  # sign is used to reference properties in application.properties file -->
+
+<style>
+tr:nth-child(even) {
+	background-color: #ddd;
+}
+</style>
+
+</head>
+
+<body>
+
+	<header>
+
+		<i class="fas fa-globe fa-7x" style="color: #777e86;"></i> <span
+			id="headerLogo">Weather Finder</span>
+
+	</header>
+
+
+	<main>
+	<div id="searchDiv">
+		<h2 id="mainTitle">Find your city</h2>
+
+		<form action="#" th:action="@{current}" th:object="${wrapper}"
+			method="get">
+
+			<p id="error" th:if="${#fields.hasErrors('cityAndCountry')}"
+				th:errors="*{cityAndCountry}">Error</p>
+
+			<input type="text" th:field="*{cityAndCountry}"
+				placeholder="Montreal,Canada" /> <input
+				style="width: 118pt; height: 25pt;" type="submit" value="Submit" />
+			
+			<p th:if="${cityNotFound ==true}" th:text="'could not find city'">No city </p>
+		</form>
+
+	</div>
+	<div th:if="${city !=null}" th:object="${city}">
+
+		<div class="weatherDiv">
+
+			<h3 id="cityDateAndTime"
+				th:text="'Weather in '+*{list[0].name}+',  '+*{list[0].sys.country}">City
+				and Date</h3>
+
+		</div>
+		<div>
+			<img id="weatherIcon"
+				th:src="'http://openweathermap.org/img/w/'+*{list[0].weather[0].icon+'.png'}"
+				height="100" width="100" />
+			<h3 id="temperatureDegree" th:text="*{list[0].main.temp}+'°С'">hello</h3>
+
+			<table>
+				<tbody>
+					<tr>
+						<td>Wind</td>
+						<td th:text="*{list[0].wind.speed}+' km/h'">Wind</td>
+					</tr>
+					<tr>
+						<td>Cloudiness</td>
+						<td th:text="*{list[0].weather[0].description}">Description</td>
+					</tr>
+					<tr>
+						<td>Humidity</td>
+						<td th:text="*{list[0].main.humidity}+'%'">humidity
+							percentage</td>
+					</tr>
+					<tr>
+						<td>Local time</td>
+						<td th:text="*{localTime}+'  '+*{timezone}" />
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+	</main>
+
+</body>
+</html>
