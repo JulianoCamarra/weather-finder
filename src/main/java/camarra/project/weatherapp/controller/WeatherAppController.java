@@ -22,27 +22,31 @@ import org.springframework.web.util.NestedServletException;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import camarra.project.weatherapp.aspect.AspectController;
+import camarra.project.weatherapp.aspect.WeatherExceptionHandler;
 import camarra.project.weatherapp.model.City;
 import camarra.project.weatherapp.model.StringWrapper;
 import camarra.project.weatherapp.service.WeatherService;
 
 @Controller
-@RequestMapping("weather/")
+@RequestMapping("/")
 public class WeatherAppController {
 
 	@Autowired
 	WeatherService service;
-	
-		@Autowired
-		AspectController handler;
-		
+
+	@Autowired
+	WeatherExceptionHandler handler;
+
+	@GetMapping("/")
+	public String directToHomepage() {
+		return "redirect:search";
+	}
+
 	@GetMapping("/search")
 	public String displaySearch(Model theModel) {
 		theModel.addAttribute("wrapper", new StringWrapper());
 
 		return "search";
-		
 
 	}
 
@@ -77,9 +81,9 @@ public class WeatherAppController {
 
 	@GetMapping("/error")
 	@ExceptionHandler(Exception.class)
-	public String displayError( RedirectAttributes redirect) {
-		boolean cityNotFound=true;
-		redirect.addFlashAttribute("cityNotFound",cityNotFound);
+	public String displayError(RedirectAttributes redirect) {
+		boolean cityNotFound = true;
+		redirect.addFlashAttribute("cityNotFound", cityNotFound);
 		return "redirect:search";
 
 	}

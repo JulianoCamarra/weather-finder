@@ -10,7 +10,6 @@ import javax.validation.constraints.Pattern;
 
 public class StringWrapper {
 	@Pattern(regexp = "[a-zA-Z, ]+", message = "not a valid entry")
-
 	@NotBlank
 	private String cityAndCountry;
 

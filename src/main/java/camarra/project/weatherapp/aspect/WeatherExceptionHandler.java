@@ -21,41 +21,41 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @ControllerAdvice
-@RequestMapping("weather/")
-public class AspectController {
+@RequestMapping("/")
+public class WeatherExceptionHandler {
 
 	private FileHandler fh;
-	private final static Logger myLogger = Logger.getLogger(AspectController.class.getName());
+	private final static Logger myLogger = Logger.getLogger(WeatherExceptionHandler.class.getName());
 
-	public AspectController() throws IOException {
+	public WeatherExceptionHandler() throws IOException {
 
-		fh = new FileHandler("/home/juliano/Downloads/springboot/weather-app/src/main/resources/mylog.txt");
-		myLogger.addHandler(fh);
-		SimpleFormatter sf = new SimpleFormatter();
-		fh.setFormatter(sf);
-		fh.setLevel(Level.INFO);
-		
-
+		try {
+			fh = new FileHandler("./resources/mylog.txt", true);
+			fh.setFormatter(new SimpleFormatter());
+			myLogger.addHandler(fh);
+			fh.close();
+		} catch (Exception exc) {
+			System.out.println("Couldn't initialize handler");
+		}
 	}
 
- @ExceptionHandler(MethodArgumentNotValidException.class)
-	public String logValidationError(MethodArgumentNotValidException exc){
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public String logValidationError(MethodArgumentNotValidException exc) {
 		BindingResult theResult = exc.getBindingResult();
-		
+
 		System.out.println("inside aspect");
-		
+
 		List<FieldError> errors = theResult.getFieldErrors();
 		for (FieldError error : errors) {
 			myLogger.log(Level.INFO, error.toString());
 		}
-		 return "search";
+		return "search";
 	}
- 
- @ExceptionHandler(Exception.class)
- public String anyOtherError(Exception exc ) {
-	 System.out.println("inside aspect");
-	return "search";
-	 
-	 
- }
+
+	@ExceptionHandler(Exception.class)
+	public String anyOtherError(Exception exc) {
+		System.out.println("inside aspect");
+		return "search";
+
+	}
 }
