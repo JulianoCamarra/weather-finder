@@ -2,7 +2,6 @@ package camarra.project.weatherapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -10,7 +9,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import camarra.project.weatherapp.model.City;
 import camarra.project.weatherapp.model.Country;
-import camarra.project.weatherapp.model.Weather;
 
 @Service
 public class WeatherService {
