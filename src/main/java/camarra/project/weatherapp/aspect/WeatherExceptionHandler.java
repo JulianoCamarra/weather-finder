@@ -26,7 +26,7 @@ public class WeatherExceptionHandler {
 	public WeatherExceptionHandler() throws IOException {
 
 		try {
-			fh = new FileHandler("./resources/mylog.txt", true);
+			fh = new FileHandler("/./resources/mylog.txt", true);
 			fh.setFormatter(new SimpleFormatter());
 			myLogger.addHandler(fh);
 			fh.close();
