@@ -15,7 +15,7 @@ If only a city name is passed, the application currently uses the first result(w
 
 # Development Setup
 
-openweathermap.org and timezonedb.com require api keys. Sign up for each website and the api key will be senthttps://atrl.net/ to your email. Place your api key in 
+openweathermap.org and timezonedb.com require api keys. Sign up for each website and the api key will be sent to your email. Place your api key in 
 src/main/resources/application.properties as so
 
 weather.api.key={your api key from openweathermap.org}
