@@ -20,7 +20,6 @@ public class TimezoneService {
 	public TimezoneService() {
 
 	}
-
 	public Timezone getTimezone(double lat, double lng) {
 
 		String url = urlCoordParser(lat, lng);
@@ -28,8 +27,6 @@ public class TimezoneService {
 
 		return theTimezone;
 	}
-
-
 
 	public String urlCoordParser(double lat, double lng) {
 
@@ -45,15 +42,14 @@ public class TimezoneService {
 			double lat = city.getList()[0].getCoord().getLat();
 			double lng = city.getList()[0].getCoord().getLon();
 			Timezone theTimezone = getTimezone(lat, lng);
-			System.out.println(theTimezone);
-
+		
 			city.setLocalTime(theTimezone.getFormatted());
+			
 			if (theTimezone.getAbbreviation().equals("null")) {
 				city.setTimezone(theTimezone.getNextAbbreviation());
 			} else {
 				city.setTimezone(theTimezone.getAbbreviation());
 			}
 		}
-
 	}
 }

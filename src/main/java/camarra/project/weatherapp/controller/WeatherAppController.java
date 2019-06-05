@@ -1,7 +1,5 @@
 package camarra.project.weatherapp.controller;
 
-
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import camarra.project.weatherapp.aspect.WeatherExceptionHandler;
 import camarra.project.weatherapp.model.City;
@@ -35,13 +32,13 @@ public class WeatherAppController {
 		return "redirect:search";
 	}
 
-
 	@GetMapping("/search")
 	public String displaySearch(Model theModel) {
 		theModel.addAttribute("wrapper", new StringWrapper());
 
 		return "search";
 	}
+
 	@GetMapping("/current")
 	public String getWeather(@Valid @ModelAttribute("wrapper") StringWrapper wrapper, BindingResult theBindingResult,
 			Model theModel) {
@@ -51,7 +48,6 @@ public class WeatherAppController {
 		City theCity;
 
 		if (theBindingResult.hasErrors()) {
-			System.out.println(theBindingResult.getAllErrors());
 			return "search";
 		}
 		if (wrapper.getCityAndCountry().contains(",")) {
@@ -66,9 +62,6 @@ public class WeatherAppController {
 		}
 
 		theModel.addAttribute("city", theCity);
-		System.out.println(theCity);
-		String test = "cloudy sun with blue skies";
-		System.out.println(test.contains("blue"));
 		return "search";
 	}
 

@@ -42,7 +42,6 @@ public class CountryService {
 			return theCountry = country[0];
 
 		} else {
-
 			return theCountry = template.getForObject(url, Country.class);
 		}
 	}
@@ -68,5 +67,4 @@ public class CountryService {
 	public boolean alreadyIsoCode(String country) {
 		return (country.length() < 3);
 	}
-
 }

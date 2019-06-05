@@ -52,7 +52,6 @@ public class WeatherService {
 		timezoneService.setLocalTimeOfCity(theCity);
 
 		return theCity;
-
 	}
 
 	public String urlCityParser(String city, String countryCode) {
@@ -63,5 +62,4 @@ public class WeatherService {
 
 		return uriComponent.toString();
 	}
-
 }
