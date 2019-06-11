@@ -30,7 +30,27 @@ tr:nth-child(even) {
 
 	</header>
 
-<div>
+<main>
+	<div id="searchDiv">
+		<h2 id="mainTitle">Find your city</h2>
+
+		<form action="#" th:action="@{current}" th:object="${wrapper}"
+			method="get">
+
+			<!-- if wrapper.cityAndCountry is not validated (by bindingResult), print validation messages -->
+			<p id="error" th:if="${#fields.hasErrors('cityAndCountry')}"
+				th:errors="*{cityAndCountry}">Error</p>
+
+			<input type="text" th:field="*{cityAndCountry}"
+				placeholder="Montreal,Canada" /> <input
+				style="width: 118pt; height: 25pt;" type="submit" value="Submit" />
+			
+			<!--  'cityNotFound' is a flash attribute given when error in searching for city is caught by exceptionhandler  -->
+			<p th:if="${cityNotFound ==true}" th:text="'could not find city'">No city </p>
+		</form>
+
+	</div>
+
 		<h2 id="mainTitle">Find your city</h2>
 
 		<form action="#" th:action="@{current}" th:object="${wrapper}"
