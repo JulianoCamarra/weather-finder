@@ -30,12 +30,10 @@ public class TimezoneService {
 	public TimezoneService() {
 
 	}
-<<<<<<< HEAD
-	public Timezone getTimezone(double lat, double lng) {
-=======
 
-	public Timezone getTimezone(double lat, double lng) throws JsonParseException, JsonMappingException, IOException {
->>>>>>> localapp
+	public Timezone getTimezone(double lat, double lng) throws JsonParseException, 
+															JsonMappingException, IOException {
+
 
 		URL url = urlCoordParser(lat, lng);
 		
@@ -45,14 +43,6 @@ public class TimezoneService {
 		
 	}
 
-<<<<<<< HEAD
-	public String urlCoordParser(double lat, double lng) {
-
-		uriComponent = UriComponentsBuilder.fromHttpUrl(
-				"http://api.timezonedb.com/v2.1/get-time-zone?key={apikey}&format=json&by=position&lat={lat}&lng={lng}")
-				.buildAndExpand(key, lat, lng);
-		return uriComponent.toString();
-=======
 	public URL urlCoordParser(double lat, double lng) throws MalformedURLException {
 
 		uriComponent = UriComponentsBuilder.fromHttpUrl("http://api.timezonedb.com/v2.1/get-time-zone?"
@@ -60,20 +50,11 @@ public class TimezoneService {
 		
 		return uriComponent.toUri().toURL();
 		
->>>>>>> localapp
 	}
 
 	public void setLocalTimeOfCity(City city) throws JsonParseException, JsonMappingException, IOException {
 
 		if (city != null) {
-<<<<<<< HEAD
-			double lat = city.getList()[0].getCoord().getLat();
-			double lng = city.getList()[0].getCoord().getLon();
-			Timezone theTimezone = getTimezone(lat, lng);
-		
-			city.setLocalTime(theTimezone.getFormatted());
-			
-=======
 
 			double lat = city.getLatitude();
 			double lng = city.getLongitude();
@@ -82,7 +63,6 @@ public class TimezoneService {
 
 			city.setCurrentTime(theTimezone.getFormatted());
 
->>>>>>> localapp
 			if (theTimezone.getAbbreviation().equals("null")) {
 
 				city.setTimezone(theTimezone.getNextAbbreviation());

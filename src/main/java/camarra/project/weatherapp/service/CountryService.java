@@ -47,14 +47,11 @@ public class CountryService {
 			return alphaCode;
 
 		} else {
-<<<<<<< HEAD
-			return theCountry = template.getForObject(url, Country.class);
-=======
-
+			
 			String alphaCode = root.path("alpha2Code").asText();
 
 			return alphaCode;
->>>>>>> localapp
+
 		}
 	}
 
@@ -76,6 +73,7 @@ public class CountryService {
 					.buildAndExpand(country);
 
 			return uriComponent.toUri().toURL();
+			
 		}
 	}
 

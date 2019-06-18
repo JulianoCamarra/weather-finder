@@ -16,10 +16,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import camarra.project.weatherapp.model.City;
-<<<<<<< HEAD
-import camarra.project.weatherapp.model.Country;
-=======
->>>>>>> localapp
 
 @Service
 public class WeatherService {
