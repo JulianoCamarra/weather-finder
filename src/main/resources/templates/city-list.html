@@ -20,7 +20,6 @@ tr:nth-child(even) {
 	background-color: #ddd;
 }
 </style>
-
 </head>
 
 <body>
@@ -39,55 +38,47 @@ tr:nth-child(even) {
 			method="get">
 
 			<p id="error" th:if="${#fields.hasErrors('cityAndCountry')}"
-				th:errors="*{cityAndCountry}">Error</p> 
-		
+				th:errors="*{cityAndCountry}">Error</p>
+
 			<input type="text" th:field="*{cityAndCountry}"
-				placeholder="Montreal,Canada" /> 
-				<input
+				placeholder="Montreal,Canada" /> <input
 				style="width: 118pt; height: 25pt;" type="submit" value="Submit" />
-			</form>
-			 <p th:if="${cityNotFound ==true}" th:text="'could not find city'">No city </p> 
-		
+		</form>
+		<p th:if="${cityNotFound ==true}" th:text="'could not find city'">No
+			city</p>
+
 	</div>
-	<div th:if="${city !=null}" th:object="${city}">
 
-		<div class="weatherDiv">
+	<div th:each="city : ${cities}">
 
-			<h3 id="cityDateAndTime"
-				th:text="'Weather in '+*{cityName}+',  '+*{countryName}">City
-				and Date</h3>
-
-		</div>
 		<div>
+			<h3 id="cityDateAndTime" th:text="'Weather in '+${city.cityName}+', '+${city.countryName}"></h3>
 			<img id="weatherIcon"
-				th:src="'http://openweathermap.org/img/w/'+*{icon+'.png'}"
+				th:src="'http://openweathermap.org/img/w/'+${city.icon+'.png'}"
 				height="100" width="100" />
-			<h3 id="temperatureDegree" th:text="*{temperature}+'°С'">hello</h3>
-		
+			<h3 id="temperatureDegree" th:text="${city.temperature}+'°С'">hello</h3>
+
 			<table>
 				<tbody>
 					<tr>
 						<td>Wind</td>
-						<td th:text="*{windSpeed}+' km/h'">Wind</td>
+						<td th:text="${city.windSpeed}+' km/h'">Wind</td>
 					</tr>
 					<tr>
 						<td>Cloudiness</td>
-						<td th:text="*{cloudiness}">Description</td>
+						<td th:text="${city.cloudiness}">Description</td>
 					</tr>
 					<tr>
 						<td>Humidity</td>
-						<td th:text="*{humidity}+'%'">humidity
-							percentage</td>
+						<td th:text="${city.humidity}+'%'">humidity percentage</td>
 					</tr>
-					<tr>
-						<td>Local time</td>
-						<td th:text="*{currentTime}+'  '+*{timezone}" />
-					</tr>
+					
 				</tbody>
 			</table>
 
 		</div>
+
 	</div>
-</main>
 </body>
+
 </html>

@@ -1,10 +1,8 @@
 package camarra.project.weatherapp.model;
 
-import java.util.Arrays;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,13 +17,18 @@ public class City {
 	@Pattern(regexp="^[a-zA-Z]+$")
 	private String countryName;
 	
-	private String message;
-	private int count;
-	private List[] list;
-	private Main main;
-	private String localTime;
-	private String timezone;
-
+	int temperature;
+	
+	double windSpeed;
+	double humidity;
+	double longitude;
+	double latitude;
+	
+	String cloudiness;
+	String icon;
+	String currentTime;
+	String timezone;
+	
 	public City() {
 
 	}
@@ -38,7 +41,6 @@ public class City {
 		this.cityName = cityName;
 	}
 
-
 	public String getCountryName() {
 		return countryName;
 	}
@@ -47,48 +49,70 @@ public class City {
 		this.countryName = countryName;
 	}
 
-	public String getMessage() {
-		return message;
+	public int getTemperature() {
+		return temperature;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setTemperature(int temperature) {
+		this.temperature = temperature;
 	}
 
-	public int getCount() {
-
-		return count;
+	public double getWindSpeed() {
+		return windSpeed;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setWindSpeed(double windSpeed) {
+		this.windSpeed = windSpeed;
 	}
 
-	public List[] getList() {
-		return list;
+	public double getHumidity() {
+		return humidity;
 	}
 
-	public void setList(List[] list) {
-		this.list = list;
+	public void setHumidity(double humidity) {
+		this.humidity = humidity;
 	}
 
-	public Main getMain() {
-		return main;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setMain(Main main) {
-		this.main = main;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
-	public String getLocalTime() {
-		return localTime;
+	public double getLatitude() {
+		return latitude;
 	}
 
-	public void setLocalTime(String localTime) {
-		this.localTime = localTime;
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
-	
+	public String getCloudiness() {
+		return cloudiness;
+	}
+
+	public void setCloudiness(String cloudiness) {
+		this.cloudiness = cloudiness;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(String currentTime) {
+		this.currentTime = currentTime;
+	}
+
 	public String getTimezone() {
 		return timezone;
 	}
@@ -99,8 +123,10 @@ public class City {
 
 	@Override
 	public String toString() {
-		return "City [country=" + countryName + ", message=" + message + ", count=" + count + ", list="
-				+ Arrays.toString(list) + "]";
+		return "City [cityName=" + cityName + ", countryName=" + countryName + ", temperature=" + temperature
+				+ ", windSpeed=" + windSpeed + ", humidity=" + humidity + ", longitude=" + longitude + ", latitude="
+				+ latitude + ", cloudiness=" + cloudiness + ", icon=" + icon + ", currentTime=" + currentTime
+				+ ", timezone=" + timezone + "]";
 	}
 
 }
