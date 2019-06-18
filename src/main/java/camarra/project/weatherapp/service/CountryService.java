@@ -1,70 +1,87 @@
 package camarra.project.weatherapp.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import camarra.project.weatherapp.model.Country;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CountryService {
 
 	private UriComponents uriComponent;
-	private RestTemplate template = new RestTemplate();
+	
+	@Autowired
+	private ObjectMapper mapper;
 
 	public CountryService() {
 
 	}
 
-	public Country getCountry(String countryName) {
-
-		Country theCountry;
+	public String getCountry(String countryName) throws IOException {
 
 		if (countryName.equals("empty")) {
-			theCountry = new Country();
-			theCountry.setAlpha2Code("empty");
-			return theCountry;
+
+			return "empty";
+
 		}
 
-		String url = this.urlCountryParser(countryName);
+		URL url = this.urlCountryParser(countryName);
 
-		// restcountries.eu returns a JSON array if a country's full name is entered as
-		// parameter
-		// but returns an nested object if a country's ISO code is entered.
-		// so we return country[] if entered parameter is full name, and country if
-		// entered parameter is iso code
-
+		JsonNode root = mapper.readTree(url);
+		
+	/*
+	 * RestCountries returns object if alphacode is inserted, but returns
+	 * an array if full country name is inserted. which is why I use root.get(0) for full name of country
+	 */
 		if (!alreadyIsoCode(countryName) && countryName != "null") {
 
-			Country[] country = template.getForObject(url, Country[].class);
+			String alphaCode = root.get(0).path("alpha2Code").asText();
 
-			return theCountry = country[0];
+			return alphaCode;
 
 		} else {
+<<<<<<< HEAD
 			return theCountry = template.getForObject(url, Country.class);
+=======
+
+			String alphaCode = root.path("alpha2Code").asText();
+
+			return alphaCode;
+>>>>>>> localapp
 		}
 	}
 
-	// Helper method to convert country code URL to a String
-	public String urlCountryParser(String country) {
+	
+	public URL urlCountryParser(String country) throws MalformedURLException {
 
 		if (alreadyIsoCode(country)) {
+					
 			uriComponent = UriComponentsBuilder
 					.fromHttpUrl("https://restcountries.eu/rest/v2/alpha/{country}?fields=name;alpha2Code")
 					.buildAndExpand(country);
-			return uriComponent.toString();
+			
+			return uriComponent.toUri().toURL();
+			
 		} else {
+			
 			uriComponent = UriComponentsBuilder
 					.fromHttpUrl("https://restcountries.eu/rest/v2/name/{country}?fields=name;alpha2Code")
 					.buildAndExpand(country);
 
-			return uriComponent.toString();
+			return uriComponent.toUri().toURL();
 		}
 	}
 
-	// Check if country passed by user is already an Iso code
 	public boolean alreadyIsoCode(String country) {
+		
 		return (country.length() < 3);
+		
 	}
 }
