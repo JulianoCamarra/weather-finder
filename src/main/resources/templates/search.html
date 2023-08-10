@@ -29,12 +29,8 @@ tr:nth-child(even) {
 			id="headerLogo">Weather Finder</span>
 
 	</header>
-<<<<<<< HEAD
 
 <main>
-=======
-	<main>
->>>>>>> localapp
 	<div id="searchDiv">
 		<h2 id="mainTitle">Find your city</h2>
 
@@ -49,17 +45,9 @@ tr:nth-child(even) {
 				placeholder="Montreal,Canada" /> 
 				<input
 				style="width: 118pt; height: 25pt;" type="submit" value="Submit" />
-<<<<<<< HEAD
-			
-			<!--  'cityNotFound' is a flash attribute given when error in searching for city is caught by exceptionhandler  -->
-			<p th:if="${cityNotFound ==true}" th:text="'could not find city'">No city </p>
-		</form>
-
-=======
 			</form>
 			 <p th:if="${cityNotFound ==true}" th:text="'could not find city'">No city </p> 
 		
->>>>>>> localapp
 	</div>
 	<div th:if="${city !=null}" th:object="${city}">
 
